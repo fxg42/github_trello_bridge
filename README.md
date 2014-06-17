@@ -18,7 +18,7 @@ Setting up the trello access is a little more involved.
 1. **Get your access token.** We need to generate an everlasting access token
    with write privileges. Insert your API key in the following link as well as
    your application name (any name will do):
-   [https://trello.com/1/authorize?key=<YOUR API KEY>&scope=read%2Cwrite&name=<SOME NAME>&expiration=never&response_type=token](https://trello.com/1/authorize?key=<YOUR API KEY>&scope=read%2Cwrite&name=<SOME NAME>&expiration=never&response_type=token) 
+   [https://trello.com/1/authorize?key=YOUR_API_KEY&scope=read%2Cwrite&name=SOME_NAME&expiration=never&response_type=token](https://trello.com/1/authorize?key=YOUR_API_KEY&scope=read%2Cwrite&name=SOME_NAME&expiration=never&response_type=token) 
    Set the value of the `TRELLO_WRITE_ACCESS_TOKEN` with the value found on the
    resulting page.
 
