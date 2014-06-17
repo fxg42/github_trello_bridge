@@ -1,0 +1,16 @@
+{
+  "name": "trello",
+  "version": "0.0.0",
+  "description": "ERROR: No README.md file found!",
+  "main": "index.js",
+  "repository": "",
+  "author": "",
+  "license": "BSD",
+  "dependencies": {
+    "async": "~0.2.6",
+    "underscore": "~1.6.0",
+    "github": "~0.2.0",
+    "node-trello": "~0.1.5",
+    "commander": "~2.2.0"
+  }
+}
