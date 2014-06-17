@@ -28,13 +28,13 @@ program
   .version '0.0.1'
   .option '-b, --trello_board <value>', 'Trello board id or short id'
   .option '-l, --trello_issue_list <value>', 'Trello list id to create new cards in'
-  .option '-u, --github_username <value>', 'GitHub repo owner\'s username'
+  .option '-o, --github_repo_owner <value>', 'GitHub repo owner\'s username'
   .option '-r, --github_repo <value>', 'GitHub repo name'
   .parse process.argv
 
 TRELLO_BOARD_ID = program.trello_board
 TRELLO_NEW_ISSUES_LIST_ID = program.trello_issue_list
-GITHUB_USER = program.github_username
+GITHUB_REPO_OWNER = program.github_repo_owner
 GITHUB_REPO = program.github_repo
 
 trello = new Trello(TRELLO_API_KEY, TRELLO_WRITE_ACCESS_TOKEN)
@@ -42,7 +42,7 @@ trello = new Trello(TRELLO_API_KEY, TRELLO_WRITE_ACCESS_TOKEN)
 findAllIssues = (callback) ->
   github = new GitHub({version:'3.0.0'})
   github.authenticate({type:'basic', username:GITHUB_USERNAME, password:GITHUB_PASSWORD})
-  github.issues.repoIssues {user:GITHUB_USER, repo:GITHUB_REPO}, callback
+  github.issues.repoIssues {user:GITHUB_REPO_OWNER, repo:GITHUB_REPO}, callback
 
 findAllCards = (callback) ->
   trello.get "/1/boards/#{TRELLO_BOARD_ID}/cards/all", callback
@@ -50,16 +50,19 @@ findAllCards = (callback) ->
 cardName = (issue) ->
   "[Issue \##{issue.number}] (#{issue.state}) #{issue.title}"
 
+cardDesc = (issue) ->
+  "#{issue.body} https://github.com/#{GITHUB_REPO_OWNER}/#{GITHUB_REPO}/issues/#{issue.number}"
+
 updateCard = (card, issue, callback) ->
   payload =
     name: cardName(issue)
-    desc: issue.url
+    desc: cardDesc(issue)
   trello.put "/1/cards/#{card.id}", payload, callback
 
 createCard = (issue, callback) ->
   payload =
     name: cardName(issue)
-    desc: issue.url
+    desc: cardDesc(issue)
     labels: 'yellow'
     idList: TRELLO_NEW_ISSUES_LIST_ID
     due: null
@@ -77,5 +80,4 @@ createOrUpdateCard = (allCards, issue, callback) ->
 async.parallel {issues:findAllIssues, cards:findAllCards}, (err, {issues, cards}) ->
   throw err if err
   async.each issues, async.apply(createOrUpdateCard, cards), (err) ->
-   throw err if err
-   console.log 'done.'
+    throw err if err
