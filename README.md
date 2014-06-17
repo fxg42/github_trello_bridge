@@ -34,4 +34,8 @@ where new cards will be created.
 
 ## Running the command
 
-    $ coffee index.coffee -b TRELLO_BOARD_ID -l TRELLO_LIST_ID -o GITHUB_REPO_OWNER_USERNAME -r GITHUB_REPO_NAME
+    $ coffee index.coffee \
+          -b CHOSEN_TRELLO_BOARD_ID \
+          -l CHOSEN_TRELLO_LIST_ID \
+          -o GITHUB_REPO_OWNER_USERNAME \
+          -r GITHUB_REPO_NAME
