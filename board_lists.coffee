@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-async = require 'async'
 program = require 'commander'
 Trello = require 'node-trello'
 
@@ -21,15 +20,14 @@ TRELLO_API_KEY = process.env.TRELLO_API_KEY
 TRELLO_WRITE_ACCESS_TOKEN = process.env.TRELLO_WRITE_ACCESS_TOKEN
 
 program
-  .version '0.0.1'
   .option '-u, --trello_username <value>', 'Trello username'
   .parse process.argv
 
 trello = new Trello(TRELLO_API_KEY, TRELLO_WRITE_ACCESS_TOKEN)
 
 trello.get "/1/members/#{program.trello_username}/boards", (err, boards) ->
-  async.each boards, (board, callback) ->
-    trello.get "/1/boards/#{board.id}/lists", (err, lists) ->
-      console.log "#{board.name} (id: #{board.id})"
-      for list in lists
-        console.log "  - #{list.name} (id: #{list.id})"
+  for board in boards
+    do (board) ->
+      trello.get "/1/boards/#{board.id}/lists", (err, lists) ->
+        console.log "#{board.name} (id: #{board.id})"
+        console.log "  - #{list.name} (id: #{list.id})" for list in lists
