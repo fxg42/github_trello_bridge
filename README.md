@@ -17,11 +17,11 @@ Setting up the trello access is a little more involved.
    the "Key" field found at the top of the page.
 1. **Get your access token.** We need to generate an everlasting access token
    with write privileges. Insert your API key in the following link as well as
-   your application name (any name will do):
-   [https://trello.com/1/authorize?key=YOUR_API_KEY&scope=read%2Cwrite&name=SOME_NAME&expiration=never&response_type=token](https://trello.com/1/authorize?key=YOUR_API_KEY&scope=read%2Cwrite&name=SOME_NAME&expiration=never&response_type=token) 
-   Set the value of the `TRELLO_WRITE_ACCESS_TOKEN` with the value found on the
+   your application name (any name will do). Set the value of the `TRELLO_WRITE_ACCESS_TOKEN` with the value found on the
    resulting page.
-
+   
+   https://trello.com/1/authorize?key=YOUR_API_KEY&scope=read%2Cwrite&name=SOME_NAME&expiration=never&response_type=token
+   
 ### Finding the board and list ids
 
 Run the following command to print all your trello boards and lists with their
