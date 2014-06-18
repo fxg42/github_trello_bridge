@@ -29,8 +29,7 @@ ids:
 
     $ coffee board_lists.coffee -u YOUR_TRELLO_USERNAME
 
-Finally, you need to find what the trello board id is as well as the list id
-where new cards will be created.
+Use the chosen board and list id when running the command.
 
 ## Running the command
 
